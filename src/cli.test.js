@@ -1,16 +1,16 @@
-const { execSync } = require('child_process')
-const { ok, ifError, strictEqual: equal } = require('assert')
-const path = require('path')
-const { existsSync, unlinkSync } = require('fs')
-const { getChecksumFilePath } = require('./checksum')
-const package = require('../package.json')
-const { magenta, yellow } = require('chalk')
-const { encoding } = require('./defaults')
+import { execSync } from 'child_process'
+import { ok, ifError, strictEqual as equal } from 'assert'
+import { join } from 'path'
+import { existsSync, unlinkSync } from 'fs'
+import { getChecksumFilePath } from './checksum'
+import { version } from '../package.json'
+import { magenta, yellow } from 'chalk'
+import { encoding } from './defaults'
 
 const run = (cmd) => execSync(cmd, { encoding })
 
-module.exports = () => {
-  const scriptPath = path.join(__dirname, 'cli.js')
+export default () => {
+  const scriptPath = join(__dirname, 'cli.js')
   const command = `node ${scriptPath}`
 
   const options = [
@@ -30,7 +30,7 @@ module.exports = () => {
     )
 
     const versionText = run(`${command} --version`)
-    equal(versionText.trim(), package.version)
+    equal(versionText.trim(), version)
 
     const checksumFilePath = getChecksumFilePath(scriptPath)
     const payload = 'echo'

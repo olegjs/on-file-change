@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-const { yellow, magenta } = require('chalk')
-const { spawnSync } = require('child_process')
-const { existsSync, readFileSync, writeFileSync } = require('fs')
-const defaults = require('./defaults')
+import { yellow, magenta } from 'chalk'
+import { spawnSync } from 'child_process'
+import { existsSync, readFileSync, writeFileSync } from 'fs'
+import { encoding as _encoding } from './defaults'
 
-const {
+import {
   getChecksum,
   getChecksumFilePath,
   hashFromFileContent,
-} = require('./checksum')
+} from './checksum'
 
 const argv = require('yargs')
   .scriptName('on-change')
@@ -31,11 +31,9 @@ const argv = require('yargs')
   .demandCommand(1).argv
 
 const getPastChecksum = (path) =>
-  existsSync(path)
-    ? hashFromFileContent(readFileSync(path, defaults.encoding))
-    : null
+  existsSync(path) ? hashFromFileContent(readFileSync(path, _encoding)) : null
 
-const checksum = getChecksum(readFileSync(argv.file, defaults.encoding))
+const checksum = getChecksum(readFileSync(argv.file, _encoding))
 const checksumFilePath = getChecksumFilePath(argv.file)
 const pastChecksum = getPastChecksum(checksumFilePath)
 
@@ -46,6 +44,6 @@ if (checksum !== pastChecksum) {
   )
 
   const [command, ...args] = argv._
-  spawnSync(command, args, { encoding: defaults.encoding, stdio: 'inherit' })
+  spawnSync(command, args, { encoding: _encoding, stdio: 'inherit' })
   writeFileSync(checksumFilePath, `${checksum}  ${argv.file}`)
 }

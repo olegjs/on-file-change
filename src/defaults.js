@@ -1,5 +1,3 @@
-module.exports = {
-  algorithm: 'sha1',
-  encoding: 'utf8',
-  fileExtension: '.sha',
-}
+export const algorithm = 'sha1'
+export const encoding = 'utf8'
+export const fileExtension = '.sha'

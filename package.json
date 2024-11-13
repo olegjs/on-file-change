@@ -28,6 +28,7 @@
   "license": "ISC",
   "author": "Oleg",
   "main": "./src/cli.js",
+  "type": "module",
   "bin": {
     "on-change": "./src/cli.js"
   },
@@ -50,18 +51,6 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
-  "eslintConfig": {
-    "env": {
-      "node": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 2017
-    },
-    "extends": [
-      "eslint:recommended",
-      "prettier"
-    ]
-  },
   "nyc": {
     "branches": 100,
     "check-coverage": true,
@@ -78,8 +67,8 @@
   },
   "devDependencies": {
     "coveralls": "^3.1.0",
-    "eslint": "^8.6.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint": "^9.14.0",
+    "eslint-config-prettier": "^9.1.0",
     "nyc": "^15.1.0"
   }
 }
